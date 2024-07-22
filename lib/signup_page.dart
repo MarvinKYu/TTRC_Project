@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,16 +15,27 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmController.dispose();
     super.dispose();
   }
 
   Future signUp() async {
-    
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(), 
+        password: _passwordController.text.trim()
+      );
+    }
+  }
+
+  bool passwordConfirmed() {
+    return _passwordController.text.trim() == _confirmController.text.trim();
   }
 
   @override
@@ -85,6 +97,30 @@ class _SignupPageState extends State<SignupPage> {
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
+                    )
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height:20),
+
+            //confirm password textfield
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 400),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  border: Border.all(color: Colors.white),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: TextField(
+                    controller: _confirmController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Confirm Password',
                     )
                   ),
                 ),
