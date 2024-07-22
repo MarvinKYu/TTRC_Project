@@ -1,36 +1,29 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  final VoidCallback showSignupPage;
-  const LoginPage({Key? key, required this.showSignupPage}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  const SignupPage({Key? key, required this.showLoginPage}) : super (key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
-
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  //text controllers
+class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
-  //login method
-  Future login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(), 
-      password: _passwordController.text.trim()
-    );
-  }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  Future signUp() async {
+    
   }
 
   @override
@@ -44,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             children : [
             //title
              Text(
-              "TT Ratings Calculator",
+              "Sign Up below:",
               style: GoogleFonts.teko(
                 fontWeight: FontWeight.bold, 
                 fontSize: 54
@@ -104,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 550),
               child: MaterialButton(
                 onPressed: () async {
-                  await login();
+                  await signUp();
                 },
                 child: Container(
                   padding: EdgeInsets.all(15),
@@ -114,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: Center(
                     child: Text(
-                      'Login',
+                      'Sign Up',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -131,9 +124,9 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: widget.showSignupPage,
+                  onTap: widget.showLoginPage,
                   child: Text(
-                    ' Sign up',
+                    ' Back to Login',
                     style: TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,

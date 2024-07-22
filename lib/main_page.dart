@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ttrc_project/auth_page.dart';
 import 'package:ttrc_project/dashboard.dart';
 import 'package:ttrc_project/login_page.dart';
 
@@ -17,7 +18,7 @@ class MainPage extends StatelessWidget{
           if (snapshot.hasData) {
             return Dashboard();
           } else {
-            return LoginPage();
+            return AuthPage();
           }
         },
       ),
