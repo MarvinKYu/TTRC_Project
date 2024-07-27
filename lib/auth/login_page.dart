@@ -3,7 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ttrc_project/password_reset_page.dart';
+import 'package:ttrc_project/auth/password_reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showSignupPage;

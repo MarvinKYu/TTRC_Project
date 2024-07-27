@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:ttrc_project/main_page.dart';
+import 'package:ttrc_project/auth/main_page.dart';
 
 
 void main() async {

@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ttrc_project/auth_page.dart';
+import 'package:ttrc_project/auth/auth_page.dart';
 import 'package:ttrc_project/dashboard.dart';
 
 class MainPage extends StatelessWidget{
