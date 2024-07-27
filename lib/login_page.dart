@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ttrc_project/password_reset_page.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showSignupPage;
@@ -20,10 +21,21 @@ class _LoginPageState extends State<LoginPage> {
 
   //login method
   Future login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(), 
-      password: _passwordController.text.trim()
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(), 
+        password: _passwordController.text.trim()
+      );
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+        context: context, 
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString())
+          );
+        }
+      );
+    }
   }
 
   @override
@@ -98,10 +110,39 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(height:20),
+
+            //password reset
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 400),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return PasswordResetPage();
+                          }
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Reset Password',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      )
+                    ),
+                  )
+                ],),
+            ),
+            SizedBox(height:20),
           
             //login button
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 550),
+              padding: const EdgeInsets.symmetric(horizontal: 500),
               child: MaterialButton(
                 onPressed: () async {
                   await login();
@@ -118,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
+                        fontSize: 24
                       )
                     ),
                   )
