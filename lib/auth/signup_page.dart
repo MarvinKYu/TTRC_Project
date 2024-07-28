@@ -31,6 +31,15 @@ class _SignupPageState extends State<SignupPage> {
         email: _emailController.text.trim(), 
         password: _passwordController.text.trim()
       );
+    } else {
+      showDialog(
+        context: context, 
+        builder: (context) {
+          return AlertDialog(
+            content: Text('Passwords do not match')
+          );
+        }
+      );
     }
   }
 
